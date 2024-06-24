@@ -16,7 +16,10 @@ import {
   IconPuzzle,
   IconPuzzleOff,
   IconSend,
-  IconLoader2
+  IconLoader2,
+  IconMicrophone,
+  IconHeadphones,
+  IconMicrophoneFilled
 } from "@tabler/icons-react"
 import { FC, useContext, useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -33,7 +36,6 @@ import { useSelectFileHandler } from "./chat-hooks/use-select-file-handler"
 import { EnhancedMenuPicker } from "./enhance-menu"
 import { UnsupportedFilesDialog } from "./unsupported-files-dialog"
 import useSpeechRecognition from "./chat-hooks/use-speech-recognition"
-import { IconMicrophone } from "@tabler/icons-react"
 import VoiceRecordingBar from "@/components/ui/voice-recording-bar"
 import VoiceLoadingBar from "../ui/voice-loading-bar"
 
@@ -94,7 +96,9 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     selectedPlugin,
     isRagEnabled: isRagEnabled,
     setIsRagEnabled: setIsRagEnabled,
-    subscription
+    subscription,
+    setIsConversationalAIOpen,
+    isMicSupported
   } = useContext(ChatbotUIContext)
 
   const {
@@ -158,7 +162,6 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
     isListening,
     transcript,
     setIsListening,
-    isMicSupported,
     hasMicAccess,
     startListening,
     cancelListening,
@@ -549,13 +552,12 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
             {isGenerating ? (
               <IconPlayerStopFilled
                 className={cn(
-                  "animate-pulse rounded bg-transparent p-1",
-                  !isMobile && "hover:bg-background hover:opacity-50"
+                  "md:hover:bg-background animate-pulse rounded bg-transparent p-1 md:hover:opacity-50"
                 )}
                 onClick={handleStopMessage}
                 size={30}
               />
-            ) : (
+            ) : userInput || !isMicSupported || !subscription ? (
               <IconSend
                 className={cn(
                   "bg-primary text-secondary rounded p-1 hover:opacity-50",
@@ -568,6 +570,14 @@ export const ChatInput: FC<ChatInputProps> = ({}) => {
                 }}
                 size={30}
               />
+            ) : (
+              subscription && (
+                <IconHeadphones
+                  className="bg-primary text-secondary rounded p-1 hover:opacity-50"
+                  onClick={() => setIsConversationalAIOpen(true)}
+                  size={30}
+                />
+              )
             )}
           </div>
         </div>

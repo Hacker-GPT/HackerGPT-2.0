@@ -243,7 +243,7 @@ export const Message: FC<MessageProps> = ({
                 />
               ) : (
                 <IconMoodSmile
-                  className="bg-secondary dark:bg-primary text-primary dark:text-secondary border-primary rounded border p-1"
+                  className="bg-primary text-secondary border-primary rounded border p-1"
                   size={ICON_SIZE}
                 />
               )}

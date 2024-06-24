@@ -125,6 +125,10 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
   const [currentPlayingMessageId, setCurrentPlayingMessageId] = useState<
     string | null
   >(null)
+  const [isMicSupported, setIsMicSupported] = useState(true)
+
+  // Conversational AI
+  const [isConversationalAIOpen, setIsConversationalAIOpen] = useState(false)
 
   // Handle window resize to update isMobile
   useEffect(() => {
@@ -331,7 +335,13 @@ export const GlobalState: FC<GlobalStateProps> = ({ children }) => {
 
         // Audio
         currentPlayingMessageId,
-        setCurrentPlayingMessageId
+        setCurrentPlayingMessageId,
+        isMicSupported,
+        setIsMicSupported,
+
+        // Conversational AI
+        isConversationalAIOpen,
+        setIsConversationalAIOpen
       }}
     >
       {children}

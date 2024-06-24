@@ -132,8 +132,15 @@ interface ChatbotUIContext {
   isReadyToChat: boolean
   setIsReadyToChat: Dispatch<SetStateAction<boolean>>
 
+  // Audio
   currentPlayingMessageId: string | null
   setCurrentPlayingMessageId: Dispatch<SetStateAction<string | null>>
+  isMicSupported: boolean
+  setIsMicSupported: Dispatch<SetStateAction<boolean>>
+
+  // Conversational AI
+  isConversationalAIOpen: boolean
+  setIsConversationalAIOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export const ChatbotUIContext = createContext<ChatbotUIContext>({
@@ -256,6 +263,13 @@ export const ChatbotUIContext = createContext<ChatbotUIContext>({
   isReadyToChat: false,
   setIsReadyToChat: () => {},
 
+  // Audio
   currentPlayingMessageId: null,
-  setCurrentPlayingMessageId: () => {}
+  setCurrentPlayingMessageId: () => {},
+  isMicSupported: true,
+  setIsMicSupported: () => {},
+
+  // Conversational AI
+  isConversationalAIOpen: false,
+  setIsConversationalAIOpen: () => {}
 })
